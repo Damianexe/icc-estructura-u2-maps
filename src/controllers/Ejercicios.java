@@ -28,8 +28,22 @@ public class Ejercicios {
      * frecuencia.
      */
     public static boolean areAnagrams(String str1, String str2) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (str1.length() != str2.length()) {
+            return false;
+        }
+        HashMap<Character, Integer> charCount = new HashMap<>();
 
+        for (char k : str1.toCharArray()) {
+            charCount.put(k, charCount.getOrDefault(k, 0) + 1);
+        }
+
+        for (char c : str2.toCharArray()) {
+            if (!charCount.containsKey(c) || charCount.get(c) == 0) {
+                return false;
+            }
+            charCount.put(c, charCount.get(c) - 1);
+        }
+        return true;
     }
 
     /*
@@ -47,7 +61,17 @@ public class Ejercicios {
      * Input: nums = [9,2,3,6], objetivo = 10
      * Output: null
      */
-    public int[] sumatoriaDeDos(int[] nums, int objetivo) {
-        throw new UnsupportedOperationException("Not implemented yet");
+    public static int[] sumatoriaDeDos(int[] nums, int objetivo) {
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            int complement = objetivo - nums[i];
+            if (map.containsKey(complement)) {
+                return new int[] { map.get(complement), i };
+            }
+            map.put(nums[i], i);
+        }
+        return null;
     }
 }
